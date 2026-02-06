@@ -3,7 +3,9 @@
 // // import { useAuth } from "../../../context/AuthContext";
 // import { useRouter } from "next/navigation";
 
-// export default function EditProfilePage() {
+export default function EditProfilePage() {
+  return <>edit</>;
+}
 //   // const { user } = useAuth();
 //   const router = useRouter();
 //   const [name, setName] = useState(user?.displayName || "");
