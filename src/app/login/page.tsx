@@ -1,7 +1,6 @@
 "use client";
 
-import GoogleLoginButton from "@/components/GoogleLoginButton";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Button } from "@mui/material";
 import { signInWithGoogle } from "./googleAction";
 
 export default function LoginPage() {
@@ -9,16 +8,20 @@ export default function LoginPage() {
 
   return (
     <Box sx={{ py: 8, textAlign: "center" }}>
-      {/* <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom>
         Login
       </Typography>
       <Typography paragraph>Login using your Google account.</Typography>
-      <GoogleLoginButton /> */}
-      return (
       <form action={signInWithGoogle}>
-        <button type="submit">Continue with Google</button>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ mr: 2 }}
+          type="submit"
+        >
+          Continue with Google
+        </Button>
       </form>
-      );
     </Box>
   );
 }

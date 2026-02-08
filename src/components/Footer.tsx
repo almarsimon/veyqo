@@ -33,7 +33,7 @@ export default function Footer() {
           <Typography variant="body2">
             &copy; {new Date().getFullYear()} Veyqo. All rights reserved.
           </Typography>
-          <Stack direction="row" spacing={2} style={{ fontSize: ".8rem" }}>
+          <Stack direction="row" spacing={2} style={{ fontSize: ".875rem" }}>
             <MuiLink
               component={Link}
               href="/privacy"
