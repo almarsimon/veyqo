@@ -9,6 +9,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/NavBar";
 import { theme } from "./theme";
 import Providers from "./providers";
+import { supabaseServer } from "@/lib/supabase/server";
+import { supabaseServerComponent } from "@/lib/supabase/server-component";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,11 +19,26 @@ export const metadata = {
   description: "Participate in surveys that amplify real voices",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = await supabaseServerComponent();
+  const { data, error } = await supabase.auth.getSession();
+
+  if (error) throw error;
+
+  const user = data.session?.user ?? null;
+
+  const avatarUrl =
+    (user?.user_metadata?.avatar_url as string | undefined) ?? null;
+
+  const fullName =
+    (user?.user_metadata?.full_name as string | undefined) ?? null;
+
+  const email = user?.email ?? null;
+
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -35,7 +52,7 @@ export default function RootLayout({
               backgroundColor: "#fff",
             }}
           >
-            <Navbar />
+            <Navbar user={user} avatarUrl={avatarUrl} fullName={fullName} />
             <Container
               component="main"
               sx={{ mt: 4, mb: 4, flexGrow: 1 }}
