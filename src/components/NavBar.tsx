@@ -101,6 +101,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Space_Grotesk } from "next/font/google";
+import { createClient } from "@/lib/supabase/client";
 // import { supabaseBrowser } from "@/lib/supabase-browser";
 // import { createClient } from "@/lib/supabase/client";
 
@@ -110,7 +111,7 @@ const logoFont = Space_Grotesk({
 });
 
 type NavbarProps = {
-  user: any;
+  user: unknown;
   avatarUrl: string | null;
   fullName: string | null;
 };
@@ -130,12 +131,11 @@ export default function Navbar({ user, avatarUrl, fullName }: NavbarProps) {
   };
   const handleProfileClose = () => setAnchorEl(null);
 
-  // const handleSignOut = async () => {
-  //   handleProfileClose();
-  //   await createClient.auth.signOut();
-  //   router.refresh();
-  //   router.push("/login");
-  // };
+  const handleSignOut = async () => {
+    handleProfileClose();
+    await fetch("/auth/signout", { method: "POST" });
+    window.location.assign("/");
+  };
 
   const closeDrawer = () => setDrawerOpen(false);
   const openDrawer = () => setDrawerOpen(true);
@@ -263,7 +263,7 @@ export default function Navbar({ user, avatarUrl, fullName }: NavbarProps) {
 
                   <Divider />
 
-                  <MenuItem>
+                  <MenuItem onClick={handleSignOut}>
                     <ListItemIcon>
                       <LogoutIcon fontSize="small" />
                     </ListItemIcon>

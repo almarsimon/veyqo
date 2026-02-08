@@ -7,10 +7,11 @@ import Footer from "@/components/Footer";
 // import SidebarAd from "@/components/SidebarAd";
 // import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/NavBar";
-import { theme } from "./theme";
+// import { theme } from "./theme";
 import Providers from "./providers";
-import { supabaseServer } from "@/lib/supabase/server";
 import { supabaseServerComponent } from "@/lib/supabase/server-component";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
