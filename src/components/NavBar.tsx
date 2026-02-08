@@ -114,9 +114,15 @@ type NavbarProps = {
   user: unknown;
   avatarUrl: string | null;
   fullName: string | null;
+  email?: string | null;
 };
 
-export default function Navbar({ user, avatarUrl, fullName }: NavbarProps) {
+export default function Navbar({
+  user,
+  avatarUrl,
+  fullName,
+  email,
+}: NavbarProps) {
   const router = useRouter();
 
   // Profile dropdown
@@ -221,7 +227,7 @@ export default function Navbar({ user, avatarUrl, fullName }: NavbarProps) {
                     alt={fullName ?? "Profile"}
                     sx={{ width: 32, height: 32 }}
                   >
-                    {(fullName?.[0] ?? user?.email?.[0] ?? "?").toUpperCase()}
+                    {(fullName?.[0] ?? email?.[0] ?? "?").toUpperCase()}
                   </Avatar>
 
                   <Typography
@@ -234,7 +240,7 @@ export default function Navbar({ user, avatarUrl, fullName }: NavbarProps) {
                       whiteSpace: "nowrap",
                     }}
                   >
-                    {fullName ?? user?.email ?? "Account"}
+                    {fullName ?? email ?? "Account"}
                   </Typography>
                 </Button>
 
@@ -256,7 +262,7 @@ export default function Navbar({ user, avatarUrl, fullName }: NavbarProps) {
                       <Typography
                         sx={{ fontSize: "0.85rem", color: "text.secondary" }}
                       >
-                        {user?.email}
+                        {email}
                       </Typography>
                     </Box>
                   </MenuItem>

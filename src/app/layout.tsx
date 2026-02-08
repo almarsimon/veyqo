@@ -53,7 +53,12 @@ export default async function RootLayout({
               backgroundColor: "#fff",
             }}
           >
-            <Navbar user={user} avatarUrl={avatarUrl} fullName={fullName} />
+            <Navbar
+              user={user}
+              avatarUrl={avatarUrl}
+              fullName={fullName}
+              email={email}
+            />
             <Container
               component="main"
               sx={{ mt: 4, mb: 4, flexGrow: 1 }}

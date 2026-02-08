@@ -9,7 +9,6 @@ export default function LoginPage() {
       <Typography variant="h4" gutterBottom>
         Login
       </Typography>
-      <Typography paragraph>Login using your Google account.</Typography>
       <form action={signInWithGoogle}>
         <Button
           variant="contained"
