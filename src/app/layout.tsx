@@ -61,8 +61,14 @@ export default async function RootLayout({
             />
             <Container
               component="main"
-              sx={{ mt: 4, mb: 4, flexGrow: 1 }}
               maxWidth="lg"
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                flexDirection: "column",
+                mt: 4,
+                pb: 4, // padding instead of margin
+              }}
             >
               {children}
             </Container>
