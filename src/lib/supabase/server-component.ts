@@ -13,7 +13,11 @@ export async function supabaseServerComponent() {
           return cookieStore.getAll();
         },
         // ✅ IMPORTANT: no writing in Server Components
-        setAll() {},
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            cookieStore.set(name, value, options);
+          });
+        },
       },
     },
   );

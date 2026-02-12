@@ -1,11 +1,11 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { supabaseServer } from "@/lib/supabase/server";
+import { supabaseServerClient } from "@/lib/supabase/server";
 import { headers } from "next/headers";
 
 export async function signInWithFacebook() {
-  const supabase = await supabaseServer();
+  const supabase = await supabaseServerClient();
 
   const headersList = await headers();
   const host = headersList.get("x-forwarded-host") ?? headersList.get("host");

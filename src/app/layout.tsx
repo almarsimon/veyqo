@@ -26,11 +26,19 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const supabase = await supabaseServerComponent();
-  const { data, error } = await supabase.auth.getSession();
 
-  if (error) throw error;
+  const { data, error } = await supabase.auth.getUser();
 
-  const user = data.session?.user ?? null;
+  // If logged out, Supabase may return AuthSessionMissingError — treat as guest
+  const user =
+    error && error.name === "AuthSessionMissingError"
+      ? null
+      : (data.user ?? null);
+
+  // Only throw unexpected auth errors
+  if (error && error.name !== "AuthSessionMissingError") {
+    throw error;
+  }
 
   const avatarUrl =
     (user?.user_metadata?.avatar_url as string | undefined) ?? null;

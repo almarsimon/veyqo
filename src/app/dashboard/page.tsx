@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { supabaseServer } from "@/lib/supabase/server";
+import { supabaseServerClient } from "@/lib/supabase/server";
 
 export default async function DashboardPage() {
   console.log("almar");
-  const supabase = await supabaseServer();
+  const supabase = await supabaseServerClient();
 
   const { data, error } = await supabase.auth.getSession();
   console.log("🚀 ~ DashboardPage ~ data:", data);
