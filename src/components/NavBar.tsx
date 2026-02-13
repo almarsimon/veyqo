@@ -21,7 +21,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Space_Grotesk } from "next/font/google";
 
 const logoFont = Space_Grotesk({
@@ -38,6 +38,7 @@ type NavbarProps = {
 
 const navLinks = [
   { label: "Home", href: "/" },
+  { label: "Surveys", href: "/surveys" }, // ← ADD THIS
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
@@ -49,6 +50,7 @@ export default function Navbar({
   email,
 }: NavbarProps) {
   const pathname = usePathname();
+  const router = useRouter();
 
   const isActive = (href: string) => {
     // exact match for "/" and also exact match for other routes
@@ -70,8 +72,22 @@ export default function Navbar({
 
   const handleSignOut = async () => {
     handleProfileClose();
+
     await fetch("/auth/signout", { method: "POST" });
-    window.location.assign("/");
+
+    // If you're on /surveys/[id]/participate -> go to /surveys/[id]
+    const participateMatch = pathname.match(
+      /^\/surveys\/([^/]+)\/participate\/?$/,
+    );
+    if (participateMatch) {
+      const surveyId = participateMatch[1];
+      router.replace(`/surveys/${surveyId}`);
+      router.refresh();
+      return;
+    }
+
+    // Otherwise stay on the same page, just refresh server components
+    router.refresh();
   };
 
   const closeDrawer = () => setDrawerOpen(false);
@@ -83,11 +99,9 @@ export default function Navbar({
     fontWeight: active ? 700 : 500,
     borderRadius: 999,
     px: 1.25,
-    ...(active && {
-      bgcolor: "action.selected",
-    }),
+    bgcolor: "transparent", // always transparent
     "&:hover": {
-      bgcolor: active ? "action.selected" : "action.hover",
+      bgcolor: "action.hover",
     },
   });
 
@@ -150,7 +164,7 @@ export default function Navbar({
             {!user ? (
               <Button
                 component={Link}
-                href="/login"
+                href={`/login?next=${encodeURIComponent(pathname)}`}
                 variant={isActive("/login") ? "contained" : "outlined"}
                 sx={{
                   ml: 1,

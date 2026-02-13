@@ -1,24 +1,8 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 import { supabaseServerClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
-  //   const requestUrl = new URL(request.url);
-  //   const code = requestUrl.searchParams.get("code");
-  //   console.log("🚀 ~ GET ~ code:", code);
-  //   console.log("callback almar");
-  //   console.log(process.env.NEXT_PUBLIC_SUPABASE_URL);
-  //   if (code) {
-  //     const supabase = createClient(
-  //       process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  //       process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
-  //     );
-
-  //     await supabase.auth.exchangeCodeForSession(code);
-  //   }
-
-  //   return NextResponse.redirect(new URL("/dashboard", requestUrl.origin));
-
+  t;
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
   console.log("🚀 ~ GET ~ code:", code);
