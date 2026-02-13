@@ -1,13 +1,25 @@
+"use client";
+
 import { Container, Typography, Button, Box } from "@mui/material";
 import Link from "next/link";
 
 export default function ForbiddenPage() {
   return (
     <Container maxWidth="sm">
-      <Box sx={{ py: 8 }}>
+      <Box
+        sx={{
+          minHeight: "80vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
         <Typography variant="h4" sx={{ fontWeight: 800 }}>
           Access denied
         </Typography>
+
         <Typography color="text.secondary" sx={{ mt: 1 }}>
           You don’t have permission to view this page.
         </Typography>
