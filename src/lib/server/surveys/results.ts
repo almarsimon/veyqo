@@ -91,11 +91,12 @@ export async function getSurveyResults(
     );
   });
 
-  // 3) Response IDs
+  // 3) Response IDs (CURRENT ONLY)
   const { data: responses, error: rErr } = await supabase
     .from("survey_responses")
     .select("id")
-    .eq("survey_id", surveyId);
+    .eq("survey_id", surveyId)
+    .eq("is_current", true);
 
   if (rErr) throw rErr;
 

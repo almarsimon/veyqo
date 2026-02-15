@@ -78,7 +78,7 @@ export default async function SurveysPage() {
                         </Typography>
                       </Link>
 
-                      <Chip size="small" label="Public" />
+                      {/* <Chip size="small" label="Public" /> */}
                     </Stack>
 
                     <Typography variant="caption" color="text.secondary">

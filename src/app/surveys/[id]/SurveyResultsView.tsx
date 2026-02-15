@@ -1,13 +1,20 @@
+import * as React from "react";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Alert,
   Box,
   Button,
   Card,
   CardContent,
+  Chip,
   Container,
   Divider,
   Stack,
   Typography,
 } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Link from "next/link";
 import type {
   SurveyResultsData,
@@ -19,12 +26,25 @@ function pct(count: number, total: number) {
   return Math.round((count / total) * 100);
 }
 
+type ViewerResponse = {
+  hasResponded: boolean;
+  respondedAt?: string | null;
+  answers: Record<
+    string,
+    | { type: "text"; value: string }
+    | { type: "single_choice"; optionId: string }
+    | { type: "multiple_choice"; optionIds: string[] }
+  >;
+};
+
 export default function SurveyResultsView({
   data,
   isLoggedIn,
+  viewerResponse,
 }: {
   data: SurveyResultsData;
   isLoggedIn: boolean;
+  viewerResponse?: ViewerResponse | null;
 }) {
   const {
     survey,
@@ -36,6 +56,7 @@ export default function SurveyResultsView({
   } = data;
 
   const participateHref = `/surveys/${survey.id}/participate`;
+  const editHref = `${participateHref}?mode=edit`; // you’ll wire this later
   const loginHref = `/login?next=${encodeURIComponent(participateHref)}`;
 
   const surveyUrl = `https://veyqo.vercel.app/surveys/${survey.id}`;
@@ -46,6 +67,8 @@ export default function SurveyResultsView({
 
   const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
   const xShareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`;
+
+  const hasResponded = !!viewerResponse?.hasResponded;
 
   return (
     <Container maxWidth="md">
@@ -69,38 +92,156 @@ export default function SurveyResultsView({
             </Stack>
           </Box>
 
-          {/* CTA */}
-          <Card variant="outlined">
-            <CardContent>
-              <Stack
-                direction={{ xs: "column", sm: "row" }}
-                spacing={2}
-                alignItems={{ sm: "center" }}
-                justifyContent="space-between"
-              >
-                <Box>
-                  <Typography sx={{ fontWeight: 800 }}>
-                    Want to share your voice?
-                  </Typography>
-                </Box>
+          {/* Already voted (only if logged in + responded) */}
+          {isLoggedIn && hasResponded ? (
+            <Card variant="outlined">
+              <CardContent>
+                <Stack spacing={2}>
+                  <Alert severity="info">
+                    You already voted on this survey
+                    {viewerResponse?.respondedAt
+                      ? ` (${new Date(
+                          viewerResponse.respondedAt,
+                        ).toLocaleString()})`
+                      : ""}
+                    .
+                  </Alert>
 
-                <Box>
-                  {isLoggedIn ? (
-                    <Link
-                      href={participateHref}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <Button variant="contained">Take Survey</Button>
+                  <Accordion variant="outlined" sx={{ borderRadius: 2 }}>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      <Typography sx={{ fontWeight: 800 }}>
+                        View your answers
+                      </Typography>
+                    </AccordionSummary>
+
+                    <AccordionDetails>
+                      <Stack spacing={2}>
+                        {(questions ?? []).map((q: QuestionRow) => {
+                          const a = viewerResponse?.answers?.[q.id];
+
+                          const optLabelById = new Map(
+                            (q.survey_options ?? []).map((o) => [
+                              o.id,
+                              o.label,
+                            ]),
+                          );
+
+                          let rendered: React.ReactNode = (
+                            <Typography color="text.secondary">
+                              No answer recorded.
+                            </Typography>
+                          );
+
+                          if (a?.type === "text") {
+                            rendered = (
+                              <Typography sx={{ whiteSpace: "pre-wrap" }}>
+                                {a.value ? (
+                                  a.value
+                                ) : (
+                                  <span style={{ opacity: 0.7 }}>(empty)</span>
+                                )}
+                              </Typography>
+                            );
+                          }
+
+                          if (a?.type === "single_choice") {
+                            rendered = (
+                              <Chip
+                                label={
+                                  optLabelById.get(a.optionId) ??
+                                  "Unknown option"
+                                }
+                                variant="outlined"
+                              />
+                            );
+                          }
+
+                          if (a?.type === "multiple_choice") {
+                            const labels = a.optionIds.map(
+                              (id) => optLabelById.get(id) ?? "Unknown option",
+                            );
+                            rendered = (
+                              <Stack
+                                direction="row"
+                                spacing={1}
+                                flexWrap="wrap"
+                                useFlexGap
+                              >
+                                {labels.map((label, i) => (
+                                  <Chip
+                                    key={`${q.id}-${i}`}
+                                    label={label}
+                                    variant="outlined"
+                                  />
+                                ))}
+                              </Stack>
+                            );
+                          }
+
+                          return (
+                            <Box key={q.id}>
+                              <Typography sx={{ fontWeight: 800 }}>
+                                {q.prompt}
+                              </Typography>
+                              <Box sx={{ mt: 1 }}>{rendered}</Box>
+                              <Divider sx={{ mt: 2 }} />
+                            </Box>
+                          );
+                        })}
+                      </Stack>
+                    </AccordionDetails>
+                  </Accordion>
+
+                  <Stack
+                    direction={{ xs: "column", sm: "row" }}
+                    spacing={2}
+                    justifyContent="flex-end"
+                  >
+                    <Link href={editHref} style={{ textDecoration: "none" }}>
+                      <Button variant="contained">Change my votes</Button>
                     </Link>
-                  ) : (
-                    <Link href={loginHref} style={{ textDecoration: "none" }}>
-                      <Button variant="contained">Login to participate</Button>
-                    </Link>
-                  )}
-                </Box>
-              </Stack>
-            </CardContent>
-          </Card>
+                  </Stack>
+                </Stack>
+              </CardContent>
+            </Card>
+          ) : null}
+
+          {/* CTA (hide if already responded) */}
+          {!(isLoggedIn && hasResponded) ? (
+            <Card variant="outlined">
+              <CardContent>
+                <Stack
+                  direction={{ xs: "column", sm: "row" }}
+                  spacing={2}
+                  alignItems={{ sm: "center" }}
+                  justifyContent="space-between"
+                >
+                  <Box>
+                    <Typography sx={{ fontWeight: 800 }}>
+                      Want to share your voice?
+                    </Typography>
+                  </Box>
+
+                  <Box>
+                    {isLoggedIn ? (
+                      <Link
+                        href={participateHref}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Button variant="contained">Take Survey</Button>
+                      </Link>
+                    ) : (
+                      <Link href={loginHref} style={{ textDecoration: "none" }}>
+                        <Button variant="contained">
+                          Login to participate
+                        </Button>
+                      </Link>
+                    )}
+                  </Box>
+                </Stack>
+              </CardContent>
+            </Card>
+          ) : null}
 
           {/* Share Card */}
           <Card variant="outlined">
@@ -115,7 +256,7 @@ export default function SurveyResultsView({
                   Share this survey
                 </Typography>
 
-                <Stack direction="row" spacing={2}>
+                <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
                   <Button
                     component="a"
                     href={facebookShareUrl}
@@ -140,21 +281,9 @@ export default function SurveyResultsView({
             </CardContent>
           </Card>
 
-          {/* Small note when empty */}
-          {/* {totalResponses === 0 ? (
-            <Card variant="outlined">
-              <CardContent>
-                <Typography sx={{ fontWeight: 700 }}>Results</Typography>
-                <Typography color="text.secondary" sx={{ mt: 1 }}>
-                  No responses yet — but here are the questions and options.
-                </Typography>
-              </CardContent>
-            </Card>
-          ) : null} */}
-
           {/* Questions (ALWAYS RENDER) */}
           <Stack spacing={2}>
-            {questions.map((q: QuestionRow, idx: number) => {
+            {questions.map((q: QuestionRow) => {
               const answered = answeredCount[q.id] ?? 0;
               const isChoice =
                 q.type === "single_choice" || q.type === "multiple_choice";
@@ -166,7 +295,6 @@ export default function SurveyResultsView({
                     <Stack spacing={1.25}>
                       <Box>
                         <Typography sx={{ fontWeight: 800 }}>
-                          {/* Q{idx + 1}.  */}
                           {q.prompt}
                         </Typography>
                         <Typography color="text.secondary" sx={{ mt: 0.5 }}>
