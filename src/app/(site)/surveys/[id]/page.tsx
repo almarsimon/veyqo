@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { supabaseServerComponent } from "@/lib/supabase/server-component";
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 import SurveyResultsView from "./SurveyResultsView";
 import { getSurveyResults } from "@/lib/server/surveys/results";
 
@@ -15,7 +15,7 @@ type ViewerResponse = {
 };
 
 async function getViewerResponse(args: {
-  supabase: Awaited<ReturnType<typeof supabaseServerComponent>>;
+  supabase: Awaited<ReturnType<typeof supabaseServerClient>>;
   surveyId: string;
   userId: string;
   questions: Array<{
@@ -112,7 +112,7 @@ export default async function SurveyResultsPage({
 }) {
   const { id } = await params;
 
-  const supabase = await supabaseServerComponent();
+  const supabase = await supabaseServerClient();
 
   const { data, error } = await supabase.auth.getUser();
 

@@ -1,6 +1,6 @@
 "use server";
 
-import { supabaseServerComponent } from "@/lib/supabase/server-component";
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 import { redirect } from "next/navigation";
 
 type AnswerPayload = {
@@ -13,7 +13,7 @@ export async function submitSurveyAction(
   surveyId: string,
   answers: AnswerPayload[],
 ) {
-  const supabase = await supabaseServerComponent();
+  const supabase = await supabaseServerClient();
 
   // Auth
   const { data: userData, error: userErr } = await supabase.auth.getUser();

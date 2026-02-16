@@ -1,8 +1,8 @@
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server_chatgpt";
 
 export async function POST(request: Request) {
-  const supabase = await createSupabaseServerClient();
+  const supabase = await supabaseServerClient();
   await supabase.auth.signOut();
 
   const url = new URL(request.url);

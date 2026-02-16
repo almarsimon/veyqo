@@ -1,5 +1,5 @@
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 import { NextResponse } from "next/server";
-import { supabaseServerClient } from "@/lib/supabase/server";
 
 function getSafePath(value: string | null) {
   const v = value ?? "/";

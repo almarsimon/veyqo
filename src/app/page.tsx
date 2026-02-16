@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
-import { supabaseServerComponent } from "@/lib/supabase/server-component";
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 
 type TrendingSurvey = {
   id: string;
@@ -20,7 +20,7 @@ type TrendingSurvey = {
 };
 
 export default async function HomePage() {
-  const supabase = await supabaseServerComponent();
+  const supabase = await supabaseServerClient();
 
   const { data: trending, error } = await supabase.rpc("get_trending_surveys", {
     days: 7,

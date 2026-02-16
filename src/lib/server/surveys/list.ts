@@ -1,5 +1,5 @@
 import "server-only";
-import { supabaseServerComponent } from "@/lib/supabase/server-component";
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 
 export type PublicSurveyRow = {
   id: string;
@@ -10,7 +10,7 @@ export type PublicSurveyRow = {
 };
 
 export async function getPublicSurveys(): Promise<PublicSurveyRow[]> {
-  const supabase = await supabaseServerComponent();
+  const supabase = await supabaseServerClient();
 
   const { data, error } = await supabase
     .from("surveys")

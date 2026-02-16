@@ -1,8 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { supabaseServerClient } from "@/lib/supabase/server";
 import { headers } from "next/headers";
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 
 export async function signInWithFacebook() {
   const supabase = await supabaseServerClient();

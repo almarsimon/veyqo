@@ -7,7 +7,7 @@ import { Box } from "@mui/material";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/NavBar";
 import Providers from "./providers";
-import { supabaseServerComponent } from "@/lib/supabase/server-component";
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +21,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await supabaseServerComponent();
+  const supabase = await supabaseServerClient();
   const { data, error } = await supabase.auth.getUser();
 
   const user =

@@ -1,6 +1,6 @@
 import "server-only";
 
-import { supabaseServerComponent } from "@/lib/supabase/server-component";
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 
 export type QuestionType = "single_choice" | "multiple_choice" | "text";
 
@@ -52,7 +52,7 @@ export type SurveyResultsData =
 export async function getSurveyResults(
   surveyId: string,
 ): Promise<SurveyResultsData | null> {
-  const supabase = await supabaseServerComponent();
+  const supabase = await supabaseServerClient();
 
   // 1) Survey
   const { data: survey, error: surveyErr } = await supabase

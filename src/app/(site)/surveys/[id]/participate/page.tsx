@@ -1,4 +1,4 @@
-import { supabaseServerComponent } from "@/lib/supabase/server-component";
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 import { notFound, redirect } from "next/navigation";
 import ParticipateForm from "./ParticipateForm";
 
@@ -28,7 +28,7 @@ export default async function ParticipatePage({
   const sp = (await searchParams) ?? {};
   const mode = sp.mode; // "edit" to prefill + allow editing
 
-  const supabase = await supabaseServerComponent();
+  const supabase = await supabaseServerClient();
 
   // Require auth for participate (since you store user_id)
   const { data: userData, error: userErr } = await supabase.auth.getUser();

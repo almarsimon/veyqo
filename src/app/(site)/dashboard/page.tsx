@@ -1,18 +1,13 @@
-import { redirect } from "next/navigation";
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 import Link from "next/link";
-import { supabaseServerClient } from "@/lib/supabase/server";
 
 export default async function DashboardPage() {
-  console.log("almar");
   const supabase = await supabaseServerClient();
 
   const { data, error } = await supabase.auth.getSession();
-  console.log("🚀 ~ DashboardPage ~ data:", data);
   if (error) throw error;
 
   const user = data.session?.user ?? null;
-
-  console.log("🚀 ~ DashboardPage ~ user:", user);
 
   // Protect the page
   //   if (!user) redirect("/login");
