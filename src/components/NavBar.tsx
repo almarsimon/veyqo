@@ -21,7 +21,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Space_Grotesk } from "next/font/google";
 
 const logoFont = Space_Grotesk({
@@ -38,7 +38,7 @@ type NavbarProps = {
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Surveys", href: "/surveys" }, // ← ADD THIS
+  { label: "Surveys", href: "/surveys" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
@@ -50,13 +50,21 @@ export default function Navbar({
   email,
 }: NavbarProps) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const router = useRouter();
 
   const isActive = (href: string) => {
-    // exact match for "/" and also exact match for other routes
     if (href === "/") return pathname === "/";
     return pathname === href || pathname.startsWith(href + "/");
   };
+
+  // ✅ full current URL path + query (so you return to the exact page)
+  const returnTo = React.useMemo(() => {
+    const qs = searchParams?.toString();
+    return `${pathname}${qs ? `?${qs}` : ""}`;
+  }, [pathname, searchParams]);
+
+  const loginHref = `/login?returnTo=${encodeURIComponent(returnTo)}`;
 
   // Profile dropdown
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -86,7 +94,6 @@ export default function Navbar({
       return;
     }
 
-    // Otherwise stay on the same page, just refresh server components
     router.refresh();
   };
 
@@ -99,10 +106,8 @@ export default function Navbar({
     fontWeight: active ? 700 : 500,
     borderRadius: 999,
     px: 1.25,
-    bgcolor: "transparent", // always transparent
-    "&:hover": {
-      bgcolor: "action.hover",
-    },
+    bgcolor: "transparent",
+    "&:hover": { bgcolor: "action.hover" },
   });
 
   return (
@@ -164,7 +169,7 @@ export default function Navbar({
             {!user ? (
               <Button
                 component={Link}
-                href={`/login?next=${encodeURIComponent(pathname)}`}
+                href={loginHref}
                 variant={isActive("/login") ? "contained" : "outlined"}
                 sx={{
                   ml: 1,
@@ -283,7 +288,7 @@ export default function Navbar({
                 <Divider sx={{ my: 1 }} />
                 <ListItemButton
                   component={Link}
-                  href="/login"
+                  href={loginHref} // ✅ use returnTo here too
                   selected={isActive("/login")}
                   aria-current={isActive("/login") ? "page" : undefined}
                 >

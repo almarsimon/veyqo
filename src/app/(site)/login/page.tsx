@@ -13,10 +13,10 @@ import {
 import { styled } from "@mui/material/styles";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import { useSearchParams } from "next/navigation";
 import { signInWithGoogle } from "./signInWithGoogle";
 import { signInWithFacebook } from "./signInWithFacebook";
 
-// Brand-ish buttons (Material UI doesn't ship official OAuth provider buttons)
 const GoogleButton = styled(Button)(({ theme }) => ({
   textTransform: "none",
   fontWeight: 600,
@@ -27,9 +27,7 @@ const GoogleButton = styled(Button)(({ theme }) => ({
   border: `1px solid ${theme.palette.divider}`,
   backgroundColor: theme.palette.common.white,
   color: theme.palette.text.primary,
-  "&:hover": {
-    backgroundColor: theme.palette.grey[50],
-  },
+  "&:hover": { backgroundColor: theme.palette.grey[50] },
 }));
 
 const FacebookButton = styled(Button)(({ theme }) => ({
@@ -41,12 +39,30 @@ const FacebookButton = styled(Button)(({ theme }) => ({
   paddingBottom: theme.spacing(1.2),
   backgroundColor: "#1877F2",
   color: theme.palette.common.white,
-  "&:hover": {
-    backgroundColor: "#166FE5",
-  },
+  "&:hover": { backgroundColor: "#166FE5" },
 }));
 
+function safePath(v: string | null) {
+  const value = v ?? "/";
+  return value.startsWith("/") ? value : "/";
+}
+
+function setReturnToCookie(returnTo: string) {
+  // 10 minutes, Lax so it survives the OAuth roundtrip
+  document.cookie = `veyqo_returnTo=${encodeURIComponent(
+    returnTo,
+  )}; Path=/; Max-Age=600; SameSite=Lax`;
+}
+
 export default function LoginPage() {
+  const sp = useSearchParams();
+  const returnTo = safePath(sp.get("returnTo"));
+
+  const onSubmit = React.useCallback(
+    () => setReturnToCookie(returnTo),
+    [returnTo],
+  );
+
   return (
     <Box
       sx={{
@@ -74,7 +90,7 @@ export default function LoginPage() {
               minHeight: { md: 520 },
             }}
           >
-            {/* LEFT: Image / Illustration (hidden on mobile) */}
+            {/* LEFT */}
             <Box
               sx={{
                 display: { xs: "none", md: "block" },
@@ -82,18 +98,12 @@ export default function LoginPage() {
                 bgcolor: "grey.100",
               }}
             >
-              {/* You can replace this with next/image if you prefer */}
               <Box
                 component="img"
                 alt="Welcome illustration"
                 src="/login-illustration.jpg"
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
+                sx={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
-              {/* Optional overlay text */}
               <Box
                 sx={{
                   position: "absolute",
@@ -118,7 +128,7 @@ export default function LoginPage() {
               </Box>
             </Box>
 
-            {/* RIGHT: Login panel */}
+            {/* RIGHT */}
             <Box sx={{ p: { xs: 3, sm: 4, md: 5 } }}>
               <Stack spacing={2.5}>
                 <Box>
@@ -131,7 +141,7 @@ export default function LoginPage() {
                 </Box>
 
                 <Stack spacing={1.5}>
-                  <form action={signInWithGoogle}>
+                  <form action={signInWithGoogle} onSubmit={onSubmit}>
                     <GoogleButton
                       fullWidth
                       variant="contained"
@@ -143,7 +153,7 @@ export default function LoginPage() {
                     </GoogleButton>
                   </form>
 
-                  <form action={signInWithFacebook}>
+                  <form action={signInWithFacebook} onSubmit={onSubmit}>
                     <FacebookButton
                       fullWidth
                       variant="contained"
@@ -167,7 +177,6 @@ export default function LoginPage() {
                   Privacy Policy.
                 </Typography>
 
-                {/* Optional: small helper */}
                 <Typography variant="body2" color="text.secondary">
                   Having trouble? Try a different provider or check that pop-ups
                   are allowed.
@@ -180,38 +189,3 @@ export default function LoginPage() {
     </Box>
   );
 }
-
-// "use client";
-
-// import { Typography, Box, Button } from "@mui/material";
-// import { signInWithFacebook, signInWithGoogle } from "./googleAction";
-
-// export default function LoginPage() {
-//   return (
-//     <Box sx={{ py: 8, textAlign: "center" }}>
-//       <Typography variant="h4" gutterBottom>
-//         Login
-//       </Typography>
-//       <form action={signInWithGoogle}>
-//         <Button
-//           variant="contained"
-//           color="primary"
-//           sx={{ mr: 2 }}
-//           type="submit"
-//         >
-//           Continue with Google
-//         </Button>
-//       </form>
-//       <form action={signInWithFacebook}>
-//         <Button
-//           variant="contained"
-//           color="primary"
-//           sx={{ mr: 2 }}
-//           type="submit"
-//         >
-//           Continue with Facebook
-//         </Button>
-//       </form>
-//     </Box>
-//   );
-// }

@@ -1,17 +1,13 @@
+// src/app/layout.tsx
+
 import "./globals.css";
 import React from "react";
 import { Inter } from "next/font/google";
-import { Box, Container, CssBaseline, ThemeProvider } from "@mui/material";
-// import Navbar from "../components/Navbar";
+import { Box } from "@mui/material";
 import Footer from "@/components/Footer";
-// import SidebarAd from "@/components/SidebarAd";
-// import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/NavBar";
-// import { theme } from "./theme";
 import Providers from "./providers";
 import { supabaseServerComponent } from "@/lib/supabase/server-component";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,16 +22,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const supabase = await supabaseServerComponent();
-
   const { data, error } = await supabase.auth.getUser();
 
-  // If logged out, Supabase may return AuthSessionMissingError — treat as guest
   const user =
     error && error.name === "AuthSessionMissingError"
       ? null
       : (data.user ?? null);
 
-  // Only throw unexpected auth errors
   if (error && error.name !== "AuthSessionMissingError") {
     throw error;
   }
@@ -51,7 +44,6 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <AuthProvider> */}
         <Providers>
           <Box
             sx={{
@@ -67,23 +59,15 @@ export default async function RootLayout({
               fullName={fullName}
               email={email}
             />
-            <Container
-              component="main"
-              maxWidth="lg"
-              sx={{
-                flexGrow: 1,
-                display: "flex",
-                flexDirection: "column",
-                mt: 4,
-                pb: 4, // padding instead of margin
-              }}
-            >
+
+            {/* 🔥 NO Container here */}
+            <Box component="main" sx={{ flexGrow: 1 }}>
               {children}
-            </Container>
+            </Box>
+
             <Footer />
           </Box>
         </Providers>
-        {/* </AuthProvider> */}
       </body>
     </html>
   );

@@ -55,9 +55,14 @@ export default function SurveyResultsView({
     answeredCount,
   } = data;
 
+  const hasResponded = !!viewerResponse?.hasResponded;
+
   const participateHref = `/surveys/${survey.id}/participate`;
-  const editHref = `${participateHref}?mode=edit`; // you’ll wire this later
-  const loginHref = `/login?next=${encodeURIComponent(participateHref)}`;
+  const editHref = `${participateHref}?mode=edit`;
+
+  // ✅ if logged out, login should bring them to participate (or edit if they already voted)
+  const desiredAfterLogin = hasResponded ? editHref : participateHref;
+  const loginHref = `/login?returnTo=${encodeURIComponent(desiredAfterLogin)}`;
 
   const surveyUrl = `https://veyqo.vercel.app/surveys/${survey.id}`;
   const encodedUrl = encodeURIComponent(surveyUrl);
@@ -67,8 +72,6 @@ export default function SurveyResultsView({
 
   const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
   const xShareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`;
-
-  const hasResponded = !!viewerResponse?.hasResponded;
 
   return (
     <Container maxWidth="md">
@@ -92,7 +95,7 @@ export default function SurveyResultsView({
             </Stack>
           </Box>
 
-          {/* Already voted (only if logged in + responded) */}
+          {/* ✅ Already voted (only if logged in + responded) */}
           {isLoggedIn && hasResponded ? (
             <Card variant="outlined">
               <CardContent>
@@ -160,6 +163,7 @@ export default function SurveyResultsView({
                             const labels = a.optionIds.map(
                               (id) => optLabelById.get(id) ?? "Unknown option",
                             );
+
                             rendered = (
                               <Stack
                                 direction="row"
@@ -206,7 +210,7 @@ export default function SurveyResultsView({
             </Card>
           ) : null}
 
-          {/* CTA (hide if already responded) */}
+          {/* ✅ CTA (hide if already responded) */}
           {!(isLoggedIn && hasResponded) ? (
             <Card variant="outlined">
               <CardContent>
@@ -262,7 +266,13 @@ export default function SurveyResultsView({
                     href={facebookShareUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    variant="outlined"
+                    variant="contained"
+                    sx={{
+                      bgcolor: "#1877F2",
+                      "&:hover": { bgcolor: "#166FE5" },
+                      textTransform: "none",
+                      fontWeight: 600,
+                    }}
                   >
                     Share on Facebook
                   </Button>
@@ -272,7 +282,13 @@ export default function SurveyResultsView({
                     href={xShareUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    variant="outlined"
+                    variant="contained"
+                    sx={{
+                      bgcolor: "#000000",
+                      "&:hover": { bgcolor: "#111111" },
+                      textTransform: "none",
+                      fontWeight: 600,
+                    }}
                   >
                     Share on X
                   </Button>

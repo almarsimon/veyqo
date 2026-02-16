@@ -1,34 +1,53 @@
 import { NextResponse } from "next/server";
 import { supabaseServerClient } from "@/lib/supabase/server";
 
+function getSafePath(value: string | null) {
+  const v = value ?? "/";
+  return v.startsWith("/") ? v : "/";
+}
+
+function readCookie(request: Request, name: string) {
+  const raw = request.headers.get("cookie") ?? "";
+  const match = raw.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
 export async function GET(request: Request) {
-  const { searchParams, origin } = new URL(request.url);
+  const url = new URL(request.url);
+  const { searchParams, origin } = url;
+
   const code = searchParams.get("code");
-  console.log("🚀 ~ GET ~ code:", code);
-  // if "next" is in param, use it as the redirect URL
-  let next = searchParams.get("next") ?? "/";
-  if (!next.startsWith("/")) {
-    // if "next" is not a relative URL, use the default
-    next = "/";
-  }
+
+  const cookieReturnTo = readCookie(request, "veyqo_returnTo");
+  const redirectPath = getSafePath(
+    searchParams.get("returnTo") ?? cookieReturnTo ?? searchParams.get("next"),
+  );
+
   if (code) {
     const supabase = await supabaseServerClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-    console.log("🚀 ~ GET ~ error:", error);
 
     if (!error) {
-      const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
+      const forwardedHost = request.headers.get("x-forwarded-host");
       const isLocalEnv = process.env.NODE_ENV === "development";
-      if (isLocalEnv) {
-        // we can be sure that there is no load balancer in between, so no need to watch for X-Forwarded-Host
-        return NextResponse.redirect(`${origin}${next}`);
-      } else if (forwardedHost) {
-        return NextResponse.redirect(`https://${forwardedHost}${next}`);
-      } else {
-        return NextResponse.redirect(`${origin}${next}`);
-      }
+
+      const redirectUrl = isLocalEnv
+        ? `${origin}${redirectPath}`
+        : forwardedHost
+          ? `https://${forwardedHost}${redirectPath}`
+          : `${origin}${redirectPath}`;
+
+      const res = NextResponse.redirect(redirectUrl);
+
+      // ✅ clear cookie after use
+      res.headers.append(
+        "Set-Cookie",
+        "veyqo_returnTo=; Path=/; Max-Age=0; SameSite=Lax",
+      );
+
+      return res;
     }
   }
-  // return the user to an error page with instructions
+
   return NextResponse.redirect(`${origin}/auth/auth-code-error`);
 }

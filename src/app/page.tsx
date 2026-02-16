@@ -3,7 +3,6 @@ import Link from "next/link";
 import {
   Box,
   Button,
-  Chip,
   Container,
   Divider,
   Paper,
@@ -29,7 +28,6 @@ export default async function HomePage() {
   });
 
   if (error) {
-    // Fail soft: show empty state, don't crash the homepage
     console.error("get_trending_surveys error:", error.message);
   }
 
@@ -42,7 +40,6 @@ export default async function HomePage() {
         <Container maxWidth="md">
           <Stack spacing={5} alignItems="center" textAlign="center">
             <Stack spacing={1.5} alignItems="center">
-              {/* <Chip label="Public, shareable surveys" variant="outlined" /> */}
               <Typography
                 variant="h2"
                 sx={{
@@ -149,10 +146,27 @@ export default async function HomePage() {
                         justifyContent="space-between"
                         alignItems={{ xs: "flex-start", sm: "center" }}
                       >
+                        {/* ✅ CLICKABLE TITLE */}
                         <Stack spacing={0.25}>
-                          <Typography sx={{ fontWeight: 700 }}>
-                            {s.title}
-                          </Typography>
+                          <Link
+                            href={`/surveys/${s.id}`}
+                            style={{
+                              textDecoration: "none",
+                              color: "inherit",
+                            }}
+                          >
+                            <Typography
+                              sx={{
+                                fontWeight: 700,
+                                "&:hover": {
+                                  textDecoration: "underline",
+                                },
+                              }}
+                            >
+                              {s.title}
+                            </Typography>
+                          </Link>
+
                           <Typography variant="body2" color="text.secondary">
                             {s.response_count} responses (last 7 days)
                           </Typography>
