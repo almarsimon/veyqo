@@ -11,11 +11,11 @@ export async function supabaseServerClient() {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
-          for (const { name, value, options } of cookiesToSet) {
-            cookieStore.set(name, value, options);
-          }
-        },
+        // setAll(cookiesToSet) {
+        //   for (const { name, value, options } of cookiesToSet) {
+        //     cookieStore.set(name, value, options);
+        //   }
+        // },
       },
     },
   );
