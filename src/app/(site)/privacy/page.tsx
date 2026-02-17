@@ -14,131 +14,206 @@ export default function PrivacyPage() {
       <Divider sx={{ my: 3 }} />
 
       <Typography paragraph>
-        Veyqo (“we,” “our,” or “us”) respects your privacy and is committed to
-        protecting your personal information. This Privacy Policy explains how
-        we collect, use, store, share, and protect information when you use our
-        website, services, and surveys (the “Services”).
+        Veyqo (“we,” “our,” or “us”) is committed to protecting your privacy and
+        handling personal information responsibly and transparently. This
+        Privacy Policy explains how we collect, use, disclose, store, and
+        safeguard information when you use our website, surveys, and related
+        services (the “Services”).
       </Typography>
 
       <Typography paragraph>
-        By using Veyqo, you agree to the practices described in this Privacy
-        Policy.
+        This Policy applies globally and is designed to comply with applicable
+        data protection laws, including the General Data Protection Regulation
+        (GDPR), UK GDPR, Canada’s PIPEDA, and the California Consumer Privacy
+        Act (CCPA/CPRA), where applicable.
+      </Typography>
+
+      <Typography paragraph>
+        By accessing or using Veyqo, you acknowledge that you have read and
+        understood this Privacy Policy.
       </Typography>
 
       <Section title="1. Information We Collect">
         <Typography paragraph>
-          We collect information to provide, improve, and secure our Services.
+          We collect information necessary to operate, secure, and improve our
+          Services.
         </Typography>
 
         <SubSection title="Information You Provide Directly">
           <Typography paragraph>
-            You may provide information when you create an account, complete
-            surveys, contact us, or edit your profile. This may include your
-            name, email address, optional profile details, and survey responses.
+            When you create an account, participate in surveys, contact us, or
+            update your profile, you may provide personal information such as
+            your name, email address, profile details, and survey responses.
           </Typography>
         </SubSection>
 
         <SubSection title="Authentication Information">
           <Typography paragraph>
-            If you sign in using third-party providers (such as Google,
-            Facebook, or X), we may receive basic profile information such as
-            your name, email address, and profile image. We never receive your
-            passwords.
+            If you sign in using third-party authentication providers (such as
+            Google, Facebook, or X), we may receive basic profile information
+            including your name, email address, and profile image. We do not
+            receive or store your passwords from these providers.
           </Typography>
         </SubSection>
 
         <SubSection title="Automatically Collected Information">
           <Typography paragraph>
-            We may collect technical data such as device type, browser, IP
-            address, pages visited, and timestamps to improve performance and
-            security.
+            We automatically collect certain technical and usage information
+            such as IP address, browser type, device information, timestamps,
+            and pages visited. This data helps us maintain security, improve
+            performance, and detect fraud.
           </Typography>
         </SubSection>
       </Section>
 
       <Section title="2. How We Use Your Information">
+        <Typography paragraph>We use your information to:</Typography>
+        <ul>
+          <li>Provide, operate, and maintain the Services</li>
+          <li>Authenticate users and secure accounts</li>
+          <li>Display surveys and aggregated results</li>
+          <li>Respond to support requests</li>
+          <li>Improve platform functionality</li>
+          <li>Prevent fraud and security threats</li>
+          <li>Comply with legal obligations</li>
+        </ul>
+      </Section>
+
+      <Section title="3. Legal Bases for Processing (EU/UK Users)">
         <Typography paragraph>
-          We use information to operate the Services, authenticate users,
-          display surveys and results, respond to support requests, improve
-          functionality, and comply with legal obligations.
+          Where required under GDPR and similar laws, we process personal data
+          on the following legal bases:
+        </Typography>
+        <ul>
+          <li>Performance of a contract</li>
+          <li>Legitimate interests (security and improvements)</li>
+          <li>Consent (where applicable)</li>
+          <li>Compliance with legal obligations</li>
+        </ul>
+      </Section>
+
+      <Section title="4. Survey Data and Responsibilities">
+        <Typography paragraph>
+          Survey creators are responsible for ensuring that their surveys comply
+          with applicable laws, including data protection and consent
+          requirements. Veyqo acts solely as a platform provider and does not
+          control or verify user-created survey content.
+        </Typography>
+
+        <Typography paragraph>
+          Survey responses may be stored, processed, and displayed in aggregated
+          or anonymized formats. We strongly discourage the collection of
+          sensitive personal information unless legally required and properly
+          disclosed.
         </Typography>
       </Section>
 
-      <Section title="3. Survey Data and Responses">
+      <Section title="5. Cookies and Similar Technologies">
         <Typography paragraph>
-          Survey responses may be stored, analyzed, and displayed in aggregated
-          or anonymized form. We recommend avoiding sensitive personal
-          information unless explicitly requested.
+          We use cookies and similar technologies to maintain secure sessions,
+          remember preferences, and analyze usage patterns. You can manage
+          cookies through your browser settings.
         </Typography>
       </Section>
 
-      <Section title="4. Cookies and Similar Technologies">
+      <Section title="6. Data Sharing and Disclosure">
+        <Typography paragraph>We do not sell personal data.</Typography>
+
+        <Typography paragraph>We may share information only:</Typography>
+
+        <ul>
+          <li>With trusted service providers that operate the platform</li>
+          <li>To comply with legal obligations</li>
+          <li>To protect users and the platform</li>
+          <li>During a merger, acquisition, or business transfer</li>
+        </ul>
+
         <Typography paragraph>
-          We use cookies to maintain sessions, remember preferences, and analyze
-          site usage. You can control cookies through your browser settings.
+          We do not sell or share personal information for cross-context
+          behavioral advertising.
         </Typography>
       </Section>
 
-      <Section title="5. Data Sharing and Disclosure">
+      <Section title="7. Data Storage and Security">
         <Typography paragraph>
-          We do not sell personal data. Information may be shared only with
-          trusted service providers, to comply with legal requirements, or to
-          protect users and the platform.
+          We implement reasonable administrative, technical, and organizational
+          safeguards to protect personal information. However, no system can
+          guarantee absolute security.
         </Typography>
       </Section>
 
-      <Section title="6. Data Storage and Security">
-        <Typography paragraph>
-          We use reasonable technical and organizational measures to protect
-          your data, including secure authentication and encrypted connections.
-        </Typography>
-      </Section>
-
-      <Section title="7. Data Retention">
+      <Section title="8. Data Retention">
         <Typography paragraph>
           We retain personal information only as long as necessary to provide
-          the Services or comply with legal obligations. Anonymized survey data
-          may be retained for analytics.
+          the Services, resolve disputes, enforce agreements, and comply with
+          legal requirements. Aggregated or anonymized data may be retained for
+          analytical purposes.
         </Typography>
       </Section>
 
-      <Section title="8. Your Rights and Choices">
+      <Section title="9. International Data Transfers">
         <Typography paragraph>
-          Depending on your location, you may have the right to access, correct,
-          or delete your personal data. You may manage your information through
-          your account or contact us directly.
+          Your information may be processed and stored in countries outside your
+          country of residence. Where required, we implement appropriate
+          safeguards such as standard contractual clauses or equivalent legal
+          mechanisms.
         </Typography>
       </Section>
 
-      <Section title="9. Children’s Privacy">
+      <Section title="10. Your Rights and Choices">
         <Typography paragraph>
-          Veyqo is not intended for children under 13. We do not knowingly
-          collect personal information from children.
+          Depending on your jurisdiction, you may have the right to:
+        </Typography>
+
+        <ul>
+          <li>Access your personal information</li>
+          <li>Correct inaccurate information</li>
+          <li>Request deletion of your data</li>
+          <li>Restrict or object to certain processing</li>
+          <li>Withdraw consent where applicable</li>
+          <li>Request data portability (EU/UK users)</li>
+        </ul>
+
+        <Typography paragraph>
+          California residents may also request disclosure of collected personal
+          information categories and request deletion, subject to legal
+          exceptions.
+        </Typography>
+
+        <Typography paragraph>
+          To exercise your rights, contact us at privacy@veyqo.com.
         </Typography>
       </Section>
 
-      <Section title="10. International Users">
+      <Section title="11. Automated Decision-Making">
         <Typography paragraph>
-          Your data may be processed or stored outside your country of
-          residence. Appropriate safeguards are applied where required.
+          Veyqo does not use personal data for automated decision-making that
+          produces legal or similarly significant effects.
         </Typography>
       </Section>
 
-      <Section title="11. Changes to This Policy">
+      <Section title="12. Children’s Privacy">
         <Typography paragraph>
-          We may update this Privacy Policy from time to time. Updates will be
-          posted on this page with a revised date.
+          Veyqo is not intended for children under 13 (or the minimum legal age
+          in your jurisdiction). We do not knowingly collect personal
+          information from children.
         </Typography>
       </Section>
 
-      <Section title="12. Contact Us">
+      <Section title="13. Changes to This Policy">
         <Typography paragraph>
-          If you have questions about this Privacy Policy, please contact us at:
+          We may update this Privacy Policy periodically. Changes become
+          effective when posted on this page. Continued use of the Services
+          constitutes acceptance of the updated Policy.
+        </Typography>
+      </Section>
+
+      <Section title="14. Contact Us">
+        <Typography paragraph>
+          If you have questions about this Privacy Policy, please contact:
         </Typography>
 
-        <Typography paragraph sx={{ fontWeight: 500 }}>
-          Email: privacy@veyqo.com
-        </Typography>
+        <Typography sx={{ fontWeight: 600 }}>privacy@veyqo.com</Typography>
       </Section>
     </Box>
   );

@@ -2,10 +2,10 @@
 
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
-import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
+import { supabaseServerClientWithSetAllCookies } from "@/lib/supabase/supabaseServerClientWithSetAllCookies";
 
 export async function signInWithGoogle() {
-  const supabase = await supabaseServerClient();
+  const supabase = await supabaseServerClientWithSetAllCookies();
 
   const headersList = await headers();
   const host = headersList.get("x-forwarded-host") ?? headersList.get("host");

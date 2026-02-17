@@ -1,4 +1,4 @@
-import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
+import { supabaseServerClientWithSetAllCookies } from "@/lib/supabase/supabaseServerClientWithSetAllCookies";
 import { NextResponse } from "next/server";
 
 function getSafePath(value: string | null) {
@@ -24,7 +24,7 @@ export async function GET(request: Request) {
   );
 
   if (code) {
-    const supabase = await supabaseServerClient();
+    const supabase = await supabaseServerClientWithSetAllCookies();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
