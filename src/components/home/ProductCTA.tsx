@@ -18,7 +18,8 @@ export default function ProductCTA() {
           borderColor: "divider",
         }}
       >
-        <Grid item xs={12} md={6}>
+        {/* ✅ remove `item` */}
+        <Grid size={{ xs: 12, md: 6 }}>
           <Box sx={{ p: { xs: 4, md: 6 }, height: "100%" }}>
             <Typography variant="h4" sx={{ fontWeight: 900 }}>
               Start a conversation that matters.
@@ -47,7 +48,11 @@ export default function ProductCTA() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} md={6} sx={{ display: { xs: "none", md: "block" } }}>
+        {/* ✅ remove `item` */}
+        <Grid
+          size={{ xs: 12, md: 6 }}
+          sx={{ display: { xs: "none", md: "block" } }}
+        >
           <Box
             sx={{
               height: "100%",

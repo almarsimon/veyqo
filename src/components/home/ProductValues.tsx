@@ -35,7 +35,7 @@ export default function ProductValues() {
         </Typography>
 
         <Grid container spacing={4}>
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Box sx={item}>
               <PollIcon sx={{ fontSize: 48 }} />
               <Typography variant="h6" sx={{ my: 2, fontWeight: 800 }}>
@@ -47,7 +47,7 @@ export default function ProductValues() {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Box sx={item}>
               <BoltIcon sx={{ fontSize: 48 }} />
               <Typography variant="h6" sx={{ my: 2, fontWeight: 800 }}>
@@ -59,7 +59,7 @@ export default function ProductValues() {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Box sx={item}>
               <PublicIcon sx={{ fontSize: 48 }} />
               <Typography variant="h6" sx={{ my: 2, fontWeight: 800 }}>

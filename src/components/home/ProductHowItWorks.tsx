@@ -37,7 +37,7 @@ export default function ProductHowItWorks() {
         </Typography>
 
         <Grid container spacing={4}>
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Box sx={item}>
               <Box sx={number}>1</Box>
               <Typography variant="h6" sx={{ mt: 2, fontWeight: 800 }}>
@@ -49,7 +49,7 @@ export default function ProductHowItWorks() {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Box sx={item}>
               <Box sx={number}>2</Box>
               <Typography variant="h6" sx={{ mt: 2, fontWeight: 800 }}>
@@ -61,7 +61,7 @@ export default function ProductHowItWorks() {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Box sx={item}>
               <Box sx={number}>3</Box>
               <Typography variant="h6" sx={{ mt: 2, fontWeight: 800 }}>
