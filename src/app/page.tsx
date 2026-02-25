@@ -6,7 +6,6 @@ import ProductCategories from "@/components/home/ProductCategories";
 import ProductHowItWorks from "@/components/home/ProductHowItWorks";
 import ProductCTA from "@/components/home/ProductCTA";
 import ProductSmokingHero from "@/components/home/ProductSmokingHero";
-import AppFooter from "@/components/home/AppFooter";
 
 import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 
