@@ -1,4 +1,4 @@
-import { supabaseServerComponent } from "@/lib/supabase/server-component";
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -6,7 +6,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
-  const supabase = await supabaseServerComponent();
+  const supabase = await supabaseServerClient();
 
   const { data } = await supabase
     .from("survey_questions")

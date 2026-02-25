@@ -1,6 +1,6 @@
 import "server-only";
 
-import { supabaseServerComponent } from "@/lib/supabase/server-component";
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 import type { CreateSurveyPayload, QuestionType } from "./types";
 
 import { requireAdmin } from "@/lib/server/auth/guards";
@@ -29,7 +29,7 @@ export async function createSurvey(
     }
   });
 
-  const supabase = await supabaseServerComponent();
+  const supabase = await supabaseServerClient();
   const { data: userRes, error: userErr } = await supabase.auth.getUser();
   if (userErr) throw userErr;
   const user = userRes.user;

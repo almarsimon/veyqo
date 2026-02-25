@@ -2,7 +2,10 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 export default async function proxy(req: NextRequest) {
-  const res = NextResponse.next();
+  // IMPORTANT: use a mutable response so cookies always land on the final response
+  let res = NextResponse.next({
+    request: { headers: req.headers },
+  });
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -19,17 +22,12 @@ export default async function proxy(req: NextRequest) {
     },
   );
 
+  // Read user (this may trigger refresh)
   const { data, error } = await supabase.auth.getUser();
-  if (error) {
-    // If something goes wrong reading auth, treat as logged out
-    // (prevents accidental access)
-    const url = req.nextUrl.clone();
-    url.pathname = "/login";
-    url.searchParams.set("next", req.nextUrl.pathname);
-    return NextResponse.redirect(url);
-  }
 
-  const user = data.user;
+  // ✅ Treat refresh_token_not_found as "logged out", NOT as "redirect to /login"
+  const user = error?.code === "refresh_token_not_found" ? null : data.user;
+
   const pathname = req.nextUrl.pathname;
 
   // 1) Logged-in required for /surveys/:id/participate
@@ -38,7 +36,8 @@ export default async function proxy(req: NextRequest) {
       const url = req.nextUrl.clone();
       url.pathname = "/login";
       url.searchParams.set("next", pathname);
-      return NextResponse.redirect(url);
+      res = NextResponse.redirect(url);
+      return res;
     }
   }
 
@@ -48,7 +47,8 @@ export default async function proxy(req: NextRequest) {
       const url = req.nextUrl.clone();
       url.pathname = "/login";
       url.searchParams.set("next", pathname);
-      return NextResponse.redirect(url);
+      res = NextResponse.redirect(url);
+      return res;
     }
 
     const adminEmail = process.env.ADMIN_EMAIL;
@@ -58,7 +58,8 @@ export default async function proxy(req: NextRequest) {
     if (!isAdmin) {
       const url = req.nextUrl.clone();
       url.pathname = "/403";
-      return NextResponse.redirect(url);
+      res = NextResponse.redirect(url);
+      return res;
     }
   }
 

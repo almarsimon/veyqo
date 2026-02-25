@@ -1,23 +1,51 @@
-import { Typography, Box, Button } from "@mui/material";
-import Link from "next/link";
+// src/app/page.tsx
+import * as React from "react";
+import ProductHero from "@/components/home/ProductHero";
+import ProductValues from "@/components/home/ProductValues";
+import ProductCategories from "@/components/home/ProductCategories";
+import ProductHowItWorks from "@/components/home/ProductHowItWorks";
+import ProductCTA from "@/components/home/ProductCTA";
+import ProductSmokingHero from "@/components/home/ProductSmokingHero";
+import AppFooter from "@/components/home/AppFooter";
 
-export default function HomePage() {
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
+
+type TrendingSurvey = {
+  id: string;
+  title: string;
+  response_count: number;
+  last_response_at: string | null;
+};
+
+export default async function HomePage() {
+  const supabase = await supabaseServerClient();
+
+  const { data: trending, error } = await supabase.rpc("get_trending_surveys", {
+    days: 7,
+    lim: 3,
+  });
+
+  if (error) {
+    console.error("get_trending_surveys error:", error.message);
+  }
+
+  const surveys = (trending ?? []) as TrendingSurvey[];
+
   return (
-    <Box sx={{ textAlign: "center", py: 10 }}>
-      <Typography variant="h3" gutterBottom>
-        Welcome to Veyqo
-      </Typography>
-      <Typography variant="h6" gutterBottom>
-        Participate in surveys, share your voice, and see results instantly.
-      </Typography>
-      {/* <Button
-        component={Link}
-        href="/survey"
-        variant="contained"
-        sx={{ mt: 4 }}
-      >
-        Take a Survey
-      </Button> */}
-    </Box>
+    <React.Fragment>
+      <ProductHero />
+      <ProductValues />
+
+      {/* ✅ Replaced “categories images” with your trending surveys (still clickable) */}
+      <ProductCategories surveys={surveys} />
+
+      <ProductHowItWorks />
+
+      {/* ✅ Replaced “Receive offers” with an About section + CTA */}
+      <ProductCTA />
+
+      {/* ✅ Replaced “Got questions” section with Contact section */}
+      <ProductSmokingHero />
+    </React.Fragment>
   );
 }

@@ -1,9 +1,9 @@
 import "server-only";
 import { redirect } from "next/navigation";
-import { supabaseServerComponent } from "@/lib/supabase/server-component";
+import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 
 export async function requireUser() {
-  const supabase = await supabaseServerComponent();
+  const supabase = await supabaseServerClient();
   const { data, error } = await supabase.auth.getUser();
   if (error) throw error;
   if (!data.user) redirect("/login");

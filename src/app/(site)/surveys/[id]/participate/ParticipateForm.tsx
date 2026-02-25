@@ -27,19 +27,55 @@ type Question = {
 
 type AnswerState = Record<string, string | Record<string, boolean>>;
 
+type PrefillAnswer =
+  | { type: "text"; value: string }
+  | { type: "single_choice"; optionId: string }
+  | { type: "multiple_choice"; optionIds: string[] };
+
+type PrefillAnswers = Record<string, PrefillAnswer>;
+
+function buildInitialStateFromPrefill(
+  prefill: PrefillAnswers | null,
+): AnswerState {
+  if (!prefill) return {};
+
+  const out: AnswerState = {};
+  for (const [questionId, a] of Object.entries(prefill)) {
+    if (a.type === "text") out[questionId] = a.value ?? "";
+    if (a.type === "single_choice") out[questionId] = a.optionId ?? "";
+    if (a.type === "multiple_choice") {
+      const obj: Record<string, boolean> = {};
+      for (const id of a.optionIds ?? []) obj[id] = true;
+      out[questionId] = obj;
+    }
+  }
+  return out;
+}
+
 export default function ParticipateForm({
   surveyId,
   surveyTitle,
   questions,
+  mode = "new",
+  prefillAnswers = null,
 }: {
   surveyId: string;
   surveyTitle: string;
   questions: Question[];
+  mode?: "new" | "edit";
+  prefillAnswers?: PrefillAnswers | null;
 }) {
   const router = useRouter();
 
-  const [answers, setAnswers] = React.useState<AnswerState>({});
+  const [answers, setAnswers] = React.useState<AnswerState>(() =>
+    buildInitialStateFromPrefill(prefillAnswers),
+  );
   const [submitting, setSubmitting] = React.useState(false);
+
+  // If prefill arrives/changes (e.g. navigation), sync once.
+  React.useEffect(() => {
+    setAnswers(buildInitialStateFromPrefill(prefillAnswers));
+  }, [prefillAnswers]);
 
   const goToResults = () => router.push(`/surveys/${surveyId}`);
 
@@ -68,7 +104,6 @@ export default function ParticipateForm({
       // @ts-ignore server action
       await submitSurveyAction(surveyId, payload);
 
-      // after submit, go to results
       router.push(`/surveys/${surveyId}/results`);
       router.refresh();
     } finally {
@@ -80,7 +115,6 @@ export default function ParticipateForm({
     <Container maxWidth="md">
       <Stack spacing={3} sx={{ py: 4 }}>
         <Box>
-          {/* Back to results */}
           <Button
             variant="text"
             onClick={goToResults}
@@ -93,8 +127,11 @@ export default function ParticipateForm({
           <Typography variant="h4" sx={{ fontWeight: 800 }}>
             {surveyTitle}
           </Typography>
+
           <Typography color="text.secondary" sx={{ mt: 0.5 }}>
-            Please answer the questions below.
+            {mode === "edit"
+              ? "Update your previous answers below."
+              : "Please answer the questions below."}
           </Typography>
         </Box>
 
@@ -161,7 +198,13 @@ export default function ParticipateForm({
         ))}
 
         <Button variant="contained" onClick={submit} disabled={submitting}>
-          {submitting ? "Submitting..." : "Submit"}
+          {submitting
+            ? mode === "edit"
+              ? "Updating..."
+              : "Submitting..."
+            : mode === "edit"
+              ? "Update my answers"
+              : "Submit"}
         </Button>
       </Stack>
     </Container>
