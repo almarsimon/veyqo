@@ -228,7 +228,7 @@ export default function Navbar({
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <Typography sx={{ fontWeight: 900, letterSpacing: 0.5 }}>
-                  Veyqo
+                  Vottally
                 </Typography>
               </Link>
             </Box>
@@ -374,7 +374,7 @@ export default function Navbar({
             <Typography
               sx={{ fontSize: "1.2rem", fontWeight: 900, letterSpacing: 0.5 }}
             >
-              Veyqo
+              Vottally
             </Typography>
           </Box>
           <Divider />

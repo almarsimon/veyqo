@@ -15,23 +15,23 @@ export default function TermsPage() {
 
       <Typography paragraph>
         These Terms and Conditions (“Terms”) govern your access to and use of
-        Veyqo (the “Service”), including our website, surveys, and all related
-        features and functionality. By accessing or using the Service, you agree
-        to be bound by these Terms.
+        Vottally (the “Service”), including our website, surveys, and all
+        related features and functionality. By accessing or using the Service,
+        you agree to be bound by these Terms.
       </Typography>
 
       <Section title="1. Acceptance of Terms">
         <Typography paragraph>
-          By using Veyqo, you confirm that you are at least 13 years old (or the
-          minimum age required in your jurisdiction) and have the legal capacity
-          to enter into these Terms. If you do not agree to these Terms, you
-          must not access or use the Service.
+          By using Vottally, you confirm that you are at least 13 years old (or
+          the minimum age required in your jurisdiction) and have the legal
+          capacity to enter into these Terms. If you do not agree to these
+          Terms, you must not access or use the Service.
         </Typography>
       </Section>
 
       <Section title="2. Description of the Service">
         <Typography paragraph>
-          Veyqo provides a platform that enables users to create, distribute,
+          Vottally provides a platform that enables users to create, distribute,
           participate in, and analyze surveys. We may modify, update, suspend,
           or discontinue any part of the Service at any time without prior
           notice.
@@ -68,22 +68,23 @@ export default function TermsPage() {
       <Section title="5. Surveys and User Content">
         <Typography paragraph>
           Users are solely responsible for the surveys and content they create
-          or submit. You retain ownership of your content, but you grant Veyqo a
-          non-exclusive, worldwide license to host, display, and process such
-          content solely for the purpose of operating and improving the Service.
+          or submit. You retain ownership of your content, but you grant
+          Vottally a non-exclusive, worldwide license to host, display, and
+          process such content solely for the purpose of operating and improving
+          the Service.
         </Typography>
 
         <Typography paragraph>
-          Veyqo does not review or endorse user-generated content and is not
+          Vottally does not review or endorse user-generated content and is not
           responsible for its accuracy or legality.
         </Typography>
       </Section>
 
       <Section title="6. Intellectual Property">
         <Typography paragraph>
-          All intellectual property related to the Veyqo platform, including
+          All intellectual property related to the Vottally platform, including
           software, branding, design, and content (excluding user content), is
-          owned by or licensed to Veyqo and protected by applicable laws. You
+          owned by or licensed to Vottally and protected by applicable laws. You
           may not copy, modify, distribute, or create derivative works without
           prior written permission.
         </Typography>
@@ -93,13 +94,13 @@ export default function TermsPage() {
         <Typography paragraph>
           Your use of the Service is subject to our Privacy Policy, which
           describes how we collect, use, and safeguard information. By using
-          Veyqo, you consent to such practices.
+          Vottally, you consent to such practices.
         </Typography>
       </Section>
 
       <Section title="8. Third-Party Services">
         <Typography paragraph>
-          Veyqo may rely on third-party services (such as authentication,
+          Vottally may rely on third-party services (such as authentication,
           hosting, analytics, or payment providers). We are not responsible for
           the content, policies, or practices of these third parties.
         </Typography>
@@ -123,15 +124,15 @@ export default function TermsPage() {
 
       <Section title="11. Limitation of Liability">
         <Typography paragraph>
-          To the maximum extent permitted by law, Veyqo shall not be liable for
-          indirect, incidental, consequential, special, or punitive damages
+          To the maximum extent permitted by law, Vottally shall not be liable
+          for indirect, incidental, consequential, special, or punitive damages
           arising out of or related to your use of the Service.
         </Typography>
       </Section>
 
       <Section title="12. Indemnification">
         <Typography paragraph>
-          You agree to indemnify and hold harmless Veyqo, its affiliates, and
+          You agree to indemnify and hold harmless Vottally, its affiliates, and
           partners from any claims, damages, or expenses arising from your
           misuse of the Service or violation of these Terms.
         </Typography>
@@ -157,7 +158,7 @@ export default function TermsPage() {
           If you have questions about these Terms, please contact us at:
         </Typography>
 
-        <Typography sx={{ fontWeight: 600 }}>legal@veyqo.com</Typography>
+        <Typography sx={{ fontWeight: 600 }}>legal@Vottally.com</Typography>
       </Section>
     </Box>
   );

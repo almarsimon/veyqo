@@ -18,7 +18,7 @@ export async function GET(request: Request) {
 
   const code = searchParams.get("code");
 
-  const cookieReturnTo = readCookie(request, "veyqo_returnTo");
+  const cookieReturnTo = readCookie(request, "Vottally_returnTo");
   const redirectPath = getSafePath(
     searchParams.get("returnTo") ?? cookieReturnTo ?? searchParams.get("next"),
   );
@@ -42,7 +42,7 @@ export async function GET(request: Request) {
       // ✅ clear cookie after use
       res.headers.append(
         "Set-Cookie",
-        "veyqo_returnTo=; Path=/; Max-Age=0; SameSite=Lax",
+        "Vottally_returnTo=; Path=/; Max-Age=0; SameSite=Lax",
       );
 
       return res;

@@ -23,7 +23,7 @@ export default function ProductValues() {
     >
       <Container sx={{ mt: 10, mb: 10 }} component="section" id="about">
         <Typography variant="h4" sx={{ fontWeight: 900, textAlign: "center" }}>
-          About Veyqo
+          About Vottally
         </Typography>
         <Typography
           variant="subtitle1"

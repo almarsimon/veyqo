@@ -14,8 +14,8 @@ export default function PrivacyPage() {
       <Divider sx={{ my: 3 }} />
 
       <Typography paragraph>
-        Veyqo (“we,” “our,” or “us”) is committed to protecting your privacy and
-        handling personal information responsibly and transparently. This
+        Vottally (“we,” “our,” or “us”) is committed to protecting your privacy
+        and handling personal information responsibly and transparently. This
         Privacy Policy explains how we collect, use, disclose, store, and
         safeguard information when you use our website, surveys, and related
         services (the “Services”).
@@ -29,7 +29,7 @@ export default function PrivacyPage() {
       </Typography>
 
       <Typography paragraph>
-        By accessing or using Veyqo, you acknowledge that you have read and
+        By accessing or using Vottally, you acknowledge that you have read and
         understood this Privacy Policy.
       </Typography>
 
@@ -96,7 +96,7 @@ export default function PrivacyPage() {
         <Typography paragraph>
           Survey creators are responsible for ensuring that their surveys comply
           with applicable laws, including data protection and consent
-          requirements. Veyqo acts solely as a platform provider and does not
+          requirements. Vottally acts solely as a platform provider and does not
           control or verify user-created survey content.
         </Typography>
 
@@ -181,21 +181,21 @@ export default function PrivacyPage() {
         </Typography>
 
         <Typography paragraph>
-          To exercise your rights, contact us at privacy@veyqo.com.
+          To exercise your rights, contact us at privacy@Vottally.com.
         </Typography>
       </Section>
 
       <Section title="11. Automated Decision-Making">
         <Typography paragraph>
-          Veyqo does not use personal data for automated decision-making that
+          Vottally does not use personal data for automated decision-making that
           produces legal or similarly significant effects.
         </Typography>
       </Section>
 
       <Section title="12. Children’s Privacy">
         <Typography paragraph>
-          Veyqo is not intended for children under 13 (or the minimum legal age
-          in your jurisdiction). We do not knowingly collect personal
+          Vottally is not intended for children under 13 (or the minimum legal
+          age in your jurisdiction). We do not knowingly collect personal
           information from children.
         </Typography>
       </Section>
@@ -213,7 +213,7 @@ export default function PrivacyPage() {
           If you have questions about this Privacy Policy, please contact:
         </Typography>
 
-        <Typography sx={{ fontWeight: 600 }}>privacy@veyqo.com</Typography>
+        <Typography sx={{ fontWeight: 600 }}>privacy@Vottally.com</Typography>
       </Section>
     </Box>
   );

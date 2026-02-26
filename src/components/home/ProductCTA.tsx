@@ -25,8 +25,8 @@ export default function ProductCTA() {
               Start a conversation that matters.
             </Typography>
             <Typography sx={{ mt: 2 }} color="text.secondary">
-              Use Veyqo to run quick public polls, gather feedback, and see what
-              people think—fast.
+              Use Vottally to run quick public polls, gather feedback, and see
+              what people think—fast.
             </Typography>
 
             <Box sx={{ mt: 4, display: "flex", gap: 2, flexWrap: "wrap" }}>

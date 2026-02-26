@@ -49,7 +49,7 @@ function safePath(v: string | null) {
 
 function setReturnToCookie(returnTo: string) {
   // 10 minutes, Lax so it survives the OAuth roundtrip
-  document.cookie = `veyqo_returnTo=${encodeURIComponent(
+  document.cookie = `Vottally_returnTo=${encodeURIComponent(
     returnTo,
   )}; Path=/; Max-Age=600; SameSite=Lax`;
 }
