@@ -19,7 +19,7 @@ function Copyright() {
     <>
       {"© "}
       <Link component={NextLink} color="inherit" href="/" underline="hover">
-        Veyqo
+        Vottally
       </Link>{" "}
       {new Date().getFullYear()}
       {". All rights reserved."}
@@ -51,7 +51,7 @@ export default function AppFooter() {
           {/* ================= LEFT SIDE ================= */}
           <Box sx={{ maxWidth: 360 }}>
             <Typography variant="h6" sx={{ fontWeight: 900 }}>
-              Veyqo
+              Vottally
             </Typography>
 
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>

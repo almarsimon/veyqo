@@ -12,7 +12,7 @@ import { supabaseServerClient } from "@/lib/supabase/supabaseServerClient";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Veyqo",
+  title: "Vottally",
   description: "Participate in surveys that amplify real voices",
 };
 

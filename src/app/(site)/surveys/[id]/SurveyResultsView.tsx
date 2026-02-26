@@ -64,10 +64,10 @@ export default function SurveyResultsView({
   const desiredAfterLogin = hasResponded ? editHref : participateHref;
   const loginHref = `/login?returnTo=${encodeURIComponent(desiredAfterLogin)}`;
 
-  const surveyUrl = `https://veyqo.vercel.app/surveys/${survey.id}`;
+  const surveyUrl = `https://Vottally.vercel.app/surveys/${survey.id}`;
   const encodedUrl = encodeURIComponent(surveyUrl);
   const encodedText = encodeURIComponent(
-    `Check out this survey on Veyqo: "${survey.title}"`,
+    `Check out this survey on Vottally: "${survey.title}"`,
   );
 
   const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;

@@ -49,7 +49,7 @@ async function sendWithResend(payload: ContactPayload) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   const to = process.env.CONTACT_TO_EMAIL; // e.g. "you@yourdomain.com"
-  const from = process.env.CONTACT_FROM_EMAIL; // e.g. "Veyqo <no-reply@yourdomain.com>"
+  const from = process.env.CONTACT_FROM_EMAIL; // e.g. "Vottally <no-reply@yourdomain.com>"
 
   if (!to || !from) {
     throw new Error("Missing CONTACT_TO_EMAIL or CONTACT_FROM_EMAIL env vars.");

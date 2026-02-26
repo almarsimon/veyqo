@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const SUPPORT_EMAIL = "support@veyqo.com"; // change if needed
+const SUPPORT_EMAIL = "support@Vottally.com"; // change if needed
 
 const ContactSchema = z.object({
   name: z.string().min(2, "Name is too short").max(80, "Name is too long"),

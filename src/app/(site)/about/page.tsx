@@ -4,7 +4,7 @@ export default function AboutPage() {
   return (
     <Box sx={{ py: 4 }}>
       <Typography variant="h4" component="h1" gutterBottom>
-        About Veyqo
+        About Vottally
       </Typography>
 
       <Typography variant="body2" color="text.secondary" gutterBottom>
@@ -15,7 +15,7 @@ export default function AboutPage() {
 
       <Section title="Our Mission">
         <Typography paragraph color="text.secondary">
-          Veyqo was created to make surveys more accessible and engaging. We
+          Vottally was created to make surveys more accessible and engaging. We
           believe everyone should have the opportunity to share their voice and
           gain insights from collective perspectives — without complicated tools
           or barriers to participation.
@@ -27,7 +27,7 @@ export default function AboutPage() {
         </Typography>
       </Section>
 
-      <Section title="What Makes Veyqo Different">
+      <Section title="What Makes Vottally Different">
         <Stack spacing={1.5}>
           <Typography color="text.secondary">
             • Clean and simple experience — no unnecessary complexity.
@@ -51,8 +51,9 @@ export default function AboutPage() {
         <Typography color="text.secondary">
           We envision a platform where opinions are easier to gather,
           understand, and act upon. By lowering the barrier to creating and
-          participating in surveys, Veyqo aims to foster informed conversations
-          and data-driven decisions across communities and organizations.
+          participating in surveys, Vottally aims to foster informed
+          conversations and data-driven decisions across communities and
+          organizations.
         </Typography>
       </Section>
     </Box>
